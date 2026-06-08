@@ -1,0 +1,30 @@
+name: Vérification Java 21 et Maven
+
+on:
+  workflow_dispatch:   # Déclenchement manuel uniquement
+
+jobs:
+  verify-versions:
+    runs-on: ubuntu-latest
+    name: Vérifier les versions Java et Maven
+
+    steps:
+      - name: Checkout du dépôt
+        uses: actions/checkout@v4
+
+      - name: Configurer Java 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Installer Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.9.9
+
+      - name: Afficher la version de Java
+        run: java -version
+
+      - name: Afficher la version de Maven
+        run: mvn -version

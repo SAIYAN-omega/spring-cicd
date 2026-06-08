@@ -28,3 +28,9 @@ jobs:
 
       - name: Afficher la version de Maven
         run: mvn -version
+
+      - name: Récupérer le code source du dépôt
+        uses: actions/checkout@v4
+
+      - name: Afficher la liste des fichiers présents
+        run: ls -la

@@ -11,3 +11,17 @@ jobs:
     steps:
     - name: Afficher Bonjour
       run: echo "Bonjour depuis GitHub Actions !"
+
+    - name: 📁 Lister les fichiers sur le runner
+      run: |
+        echo "=== Répertoire courant ==="
+        pwd
+        echo ""
+        echo "=== Contenu du répertoire ==="
+        ls -la
+        echo ""
+        echo "=== Arborescence des fichiers (max 3 niveaux) ==="
+        find . -maxdepth 3 -type f | sort
+        echo ""
+        echo "=== Nombre total de fichiers ==="
+        find . -type f | wc -l

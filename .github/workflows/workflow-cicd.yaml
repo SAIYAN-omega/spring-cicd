@@ -33,7 +33,7 @@ codeql:
       run: mvn -B clean verify -Dspring.profiles.active=test
     - name: Générer le site Maven
       run: mvn site
-           - name: Publier le rapport Checkstyle
+    - name: Publier le rapport Checkstyle
       uses: actions/upload-artifact@v4
       with:
         name: rapport-checkstyle

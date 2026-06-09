@@ -1,0 +1,41 @@
+name: workflow
+
+on:
+  workflow_dispatch:
+
+codeql:
+  name: Analyse CodeQL
+  runs-on: ubuntu-latest
+  needs: build
+  permissions:
+    security-events: write
+    actions: read
+    contents: read
+
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Initialiser CodeQL (Java)
+      uses: github/codeql-action/init@v3
+      with:
+        languages: java
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v3
+
+    - name: Exécuter l'analyse et générer le rapport CodeQL
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:java"
+
+    - name: Construire avec Maven
+      run: mvn -B clean verify -Dspring.profiles.active=test
+    - name: Générer le site Maven
+      run: mvn site
+           - name: Publier le rapport Checkstyle
+      uses: actions/upload-artifact@v4
+      with:
+        name: rapport-checkstyle
+        path: target/site/
+
